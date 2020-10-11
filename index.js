@@ -5,6 +5,28 @@ const monthsWrapper = document.querySelector('.clock__wrapper_months');
 const daysWrapper = document.querySelector('.clock__wrapper_days');
 const hoursWrapper = document.querySelector('.clock__wrapper_hours');
 
+document.querySelector('.clock').addEventListener('mouseover', (event) => {
+  if (event.target.classList.contains('clock__wrapper')) {
+    showTitle(event.target, event.target.firstElementChild);
+  }
+});
+
+document.querySelector('.clock').addEventListener('mouseout', (event) => {
+  if (event.target.classList.contains('clock__wrapper')) {
+    hiddenTitle(event.target, event.target.firstElementChild);
+  }
+});
+
+function showTitle(wrapper, title) {
+  wrapper.classList.add('hover');
+  title.classList.add('visible');
+}
+
+function hiddenTitle(wrapper, title) {
+  wrapper.classList.remove('hover');
+  title.classList.remove('visible');
+}
+
 const monthsArrow = document.querySelector('.clock__arrow_months');
 const daysArrow = document.querySelector('.clock__arrow_days');
 const hoursArrow = document.querySelector('.clock__arrow_hours');
