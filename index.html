@@ -4,155 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clock</title>
-    <style>
-      body {
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        letter-spacing: 0.1em;
-        background-color: #111;
-        color: aliceblue;
-      }
-
-      header,
-      footer {
-        margin: 2em 0;
-        color: #444;
-      }
-
-      .clock__wrapper {
-        position: relative;
-        width: 20em;
-        height: 20em;
-        border-radius: 50%;
-        border: 0.1em solid #333;
-        box-shadow: 0 0 0.8em #000;
-      }
-
-      .clock__wrapper::before {
-        content: '';
-        position: absolute;
-        z-index: 4;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 0.6em;
-        height: 0.6em;
-        border-radius: inherit;
-        border: 0.1em solid rgb(69, 157, 207);
-        box-shadow: 0 0 1em #000;
-      }
-
-      .clock__arrow {
-        position: absolute;
-        width: 0.25em;
-        transform-origin: 50% 100%;
-        border-radius: 0.5em;
-      }
-
-      .clock__arrow-hours {
-        z-index: 1;
-        top: 22%;
-        left: 50.5%;
-        height: 28%;
-        background: linear-gradient(rgb(44, 44, 44), transparent);
-      }
-
-      .clock__arrow-minutes {
-        z-index: 2;
-        top: 18%;
-        left: 49%;
-        height: 32%;
-        background: linear-gradient(rgb(60, 76, 87), transparent);
-      }
-
-      .clock__arrow-seconds {
-        z-index: 3;
-        top: 13%;
-        left: 49%;
-        height: 37%;
-        background: linear-gradient(rgb(63, 145, 192), transparent);
-      }
-
-      .clock__digit {
-        position: absolute;
-        transform-origin: 50% 100%;
-        top: 2%;
-        left: 50%;
-        height: 48%;
-        color: rgb(66, 72, 77);
-      }
-    </style>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <header>
-      <h1 class="header__title">Clock</h1>
-    </header>
     <main>
       <section class="clock">
-        <div class="clock__wrapper">
-          <div class="clock__arrow clock__arrow-hours"></div>
-          <div class="clock__arrow clock__arrow-minutes"></div>
-          <div class="clock__arrow clock__arrow-seconds"></div>
+        <div class="clock__wrapper clock__wrapper_months">
+          <div class="clock__arrow clock__arrow_months"></div>
+
+          <div class="clock__wrapper clock__wrapper_days">
+            <div class="clock__arrow clock__arrow_days"></div>
+
+            <div class="clock__wrapper clock__wrapper_hours">
+              <div class="clock__arrow clock__arrow_hours"></div>
+              <div class="clock__arrow clock__arrow_minutes"></div>
+              <div class="clock__arrow clock__arrow_seconds"></div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
-    <footer>
-      <time class="footer__year">
-        <script>
-          document.querySelector(
-            '.footer__year'
-          ).textContent = new Date().getFullYear();
-        </script>
-      </time>
-    </footer>
 
-    <script>
-      const MS_SECOND = 1000;
-      const clockWrapper = document.querySelector('.clock__wrapper');
-      const arrowHours = document.querySelector('.clock__arrow-hours');
-      const arrowMinutes = document.querySelector('.clock__arrow-minutes');
-      const arrowSeconds = document.querySelector('.clock__arrow-seconds');
-
-      let degRotate = 360;
-      const hoursPoint = 12;
-      const oneRotatePart = degRotate / hoursPoint;
-      const widthClockWrapper = clockWrapper.clientHeight;
-      const positionClockY = clockWrapper.getClientRects()[0].top;
-      const positionClockX = clockWrapper.getClientRects()[0].left;
-
-      for (let i = hoursPoint; i >= 1; i -= 1) {
-        const div = document.createElement('div');
-
-        div.className = 'clock__digit';
-        div.textContent = i;
-        div.style.transform = `translateX(-50%) rotate(${degRotate}deg)`;
-        clockWrapper.appendChild(div);
-
-        degRotate -= oneRotatePart;
-      }
-
-      clock();
-      setInterval(clock, MS_SECOND);
-
-      function clock() {
-        const date = new Date();
-        const hours = ((date.getHours() + 11) % 12) + 1;
-        const minutes = date.getMinutes();
-        const seconds = date.getSeconds();
-        const hour = hours * 30;
-        const minute = minutes * 6;
-        const second = seconds * 6;
-
-        arrowHours.style.transform = `translateX(-50%) rotate(${hour}deg)`;
-        arrowMinutes.style.transform = `translateX(-50%) rotate(${minute}deg)`;
-        arrowSeconds.style.transform = `translateX(-50%) rotate(${second}deg)`;
-      }
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>
